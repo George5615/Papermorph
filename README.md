@@ -7,16 +7,15 @@
 </p>
 
 <p align="center">
-  <strong>A Skill that turns PDFs into animated interactive web books.</strong>
+  <strong>A Codex-ready Agent Skill that turns PDFs into animated interactive web books.</strong>
 </p>
 
-You've seen Opus 5.5 one-shot videos.
-This Skill takes it further: books you can explore, listen to, and interact with.
+Papermorph turns reference PDFs into web books you can explore, listen to, and interact with. This fork makes the workflow first-class for **OpenAI Codex** while retaining the original Claude skill layout for upstream compatibility.
 
 <p align="center">
-  <a href="https://papermorph.diamonddoge.org/">Explore the live bookshelf →</a>
+  <a href="https://papermorph.diamonddoge.org/">Explore the original live bookshelf -></a>
   ·
-  <a href=".claude/skills/papermorph/SKILL.md">Use the Skill</a>
+  <a href="skills/papermorph/SKILL.md">Read the Codex Skill</a>
 </p>
 
 <p align="center">
@@ -24,45 +23,84 @@ This Skill takes it further: books you can explore, listen to, and interact with
     <img src="img/readme/papermorph-preview.gif" alt="Real demo: bookshelf, animated lessons, and interactive quizzes" width="900">
   </a>
   <br>
-  <a href="img/readme/papermorph-preview.mp4">Watch the full 75-second demo with narration</a>
+  <a href="img/readme/papermorph-preview.mp4">Watch the original 75-second demo with narration</a>
 </p>
 
 ```text
 PDF -> Book plan -> Storyboards -> Narration -> Animation & quizzes -> Web book
 ```
 
-**Today:** Opus 5.5 only. No image models, multilingual support, or BGM yet.
+## Codex quick start
 
-**Planned:** Image models and storyboarding for interactive picture books and humanities documentaries.
-
-**Milestones:** Expand the bookshelf—from STEM textbooks to picture books and social science titles—and release new Skills.
-
-## Get started
-
-Install in your project directory:
+Install the skill globally for Codex:
 
 ```bash
-npx skills add DozenTwelve/Papermorph --skill papermorph --agent claude-code
+npx skills@latest add George5615/Papermorph \
+  --skill papermorph \
+  --agent codex \
+  --global \
+  --yes
 ```
 
-In Claude Code with Opus 5.5, run:
+Or omit `--global` to install it only for the current project.
+
+Restart Codex after first installation, then ask Codex to use the skill:
 
 ```text
-/papermorph Turn /path/to/book.pdf into
-an animated interactive web book.
+$papermorph Turn /path/to/book.pdf into an animated interactive web book.
 
 Target readers: [your audience].
-Start with one English chapter for review.
+Start with one chapter for review.
 ```
+
+You can also phrase the request naturally; the skill description is written so Codex can discover it for PDF-to-interactive-book tasks.
+
+## Codex architecture
+
+The Codex-native files are:
+
+```text
+AGENTS.md
+plugin.json
+skills/
+  papermorph/
+    SKILL.md
+    references/
+    scripts/
+    assets/
+```
+
+- `skills/papermorph/` is the canonical Codex / Agent Skills implementation.
+- `AGENTS.md` contains repository-wide Codex rules and subagent coordination.
+- `plugin.json` makes the repository ready for the portable Agent Plugins layout.
+- `.claude/skills/papermorph/` is preserved as a legacy upstream snapshot rather than deleted.
+
+The Codex workflow keeps intake and the pilot chapter in the main thread. After the pilot is approved, Codex may use fresh chapter-scoped subagents **sequentially**; the coordinator alone updates shared book state.
+
+## Requirements
+
+- Python 3
+- `uv`
+- `ffmpeg` / `ffprobe`
+- Playwright Chromium
+- network access for Edge TTS
+
+The detailed workflow and commands are in [skills/papermorph/SKILL.md](skills/papermorph/SKILL.md).
 
 ## Try the examples locally
 
 ```bash
-git clone https://github.com/DozenTwelve/Papermorph.git
+git clone https://github.com/George5615/Papermorph.git
 cd Papermorph
 python3 -m http.server 8765 -d site
 ```
 
-Open [localhost:8765](http://localhost:8765/)
+Open [localhost:8765](http://localhost:8765/).
+
+## Upstream
+
+Original project: [DozenTwelve/Papermorph](https://github.com/DozenTwelve/Papermorph).
+
+The original artwork, engine, templates, examples, and workflow are retained under the upstream MIT license. This fork changes the agent packaging and orchestration for Codex.
 
 [MIT License](LICENSE)
