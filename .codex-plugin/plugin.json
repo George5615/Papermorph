@@ -2,9 +2,30 @@
   "name": "papermorph",
   "version": "0.1.0",
   "description": "Turn reference PDFs into animated, narrated, interactive static web books with OpenAI Codex.",
-  "author": {"name": "George5615", "url": "https://github.com/George5615"},
+  "author": {
+    "name": "George5615",
+    "url": "https://github.com/George5615"
+  },
   "homepage": "https://github.com/George5615/Papermorph",
   "repository": "https://github.com/George5615/Papermorph",
   "license": "MIT",
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Papermorph",
+    "shortDescription": "PDFs into interactive books",
+    "longDescription": "Turn reference PDFs into animated, narrated, interactive static web books. Papermorph plans chapters, builds SVG/HTML visual lessons and exercises, generates narration audio, and runs delivery checks before a chapter is registered.",
+    "developerName": "George5615",
+    "category": "Education & Research",
+    "capabilities": [
+      "Plan PDF-based web books",
+      "Build animated SVG lessons",
+      "Generate narrated chapter audio",
+      "Review interactive chapters"
+    ],
+    "websiteURL": "https://github.com/George5615/Papermorph",
+    "defaultPrompt": [
+      "Turn this PDF into an animated interactive web book.",
+      "Continue the next Papermorph chapter using the approved book conventions."
+    ]
+  }
 }
