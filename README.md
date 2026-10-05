@@ -67,7 +67,6 @@ Natural-language requests also work; the skill description lets Codex discover P
 
 ```text
 AGENTS.md
-plugin.json
 .codex-plugin/
   plugin.json
 .agents/
@@ -83,7 +82,6 @@ skills/
 
 - `skills/papermorph/` is the canonical Codex / Agent Skills implementation.
 - `AGENTS.md` contains repository-wide Codex rules and subagent coordination.
-- `plugin.json` is the portable Agent Plugins manifest.
 - `.codex-plugin/plugin.json` is the Codex compatibility manifest.
 - `.agents/plugins/marketplace.json` makes the Git repository usable as a Codex marketplace source.
 - `.claude/skills/papermorph/` is preserved as a legacy upstream snapshot rather than deleted.
