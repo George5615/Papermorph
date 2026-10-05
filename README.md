@@ -30,21 +30,29 @@ Papermorph turns reference PDFs into web books you can explore, listen to, and i
 PDF -> Book plan -> Storyboards -> Narration -> Animation & quizzes -> Web book
 ```
 
-## Codex quick start
+## Install in Codex
 
-Install the skill globally for Codex:
+The repository is packaged as a Codex-compatible plugin and includes its own marketplace entry.
+
+Add the marketplace:
 
 ```bash
-npx skills@latest add George5615/Papermorph \
-  --skill papermorph \
-  --agent codex \
-  --global \
-  --yes
+codex plugin marketplace add George5615/Papermorph
 ```
 
-Or omit `--global` to install it only for the current project.
+Then start Codex:
 
-Restart Codex after first installation, then ask Codex to use the skill:
+```bash
+codex
+```
+
+Open the plugin browser:
+
+```text
+/plugins
+```
+
+Install **Papermorph**, start a new Codex chat, and invoke the skill:
 
 ```text
 $papermorph Turn /path/to/book.pdf into an animated interactive web book.
@@ -53,15 +61,18 @@ Target readers: [your audience].
 Start with one chapter for review.
 ```
 
-You can also phrase the request naturally; the skill description is written so Codex can discover it for PDF-to-interactive-book tasks.
+Natural-language requests also work; the skill description lets Codex discover Papermorph for PDF-to-interactive-book tasks.
 
 ## Codex architecture
-
-The Codex-native files are:
 
 ```text
 AGENTS.md
 plugin.json
+.codex-plugin/
+  plugin.json
+.agents/
+  plugins/
+    marketplace.json
 skills/
   papermorph/
     SKILL.md
@@ -72,7 +83,9 @@ skills/
 
 - `skills/papermorph/` is the canonical Codex / Agent Skills implementation.
 - `AGENTS.md` contains repository-wide Codex rules and subagent coordination.
-- `plugin.json` makes the repository ready for the portable Agent Plugins layout.
+- `plugin.json` is the portable Agent Plugins manifest.
+- `.codex-plugin/plugin.json` is the Codex compatibility manifest.
+- `.agents/plugins/marketplace.json` makes the Git repository usable as a Codex marketplace source.
 - `.claude/skills/papermorph/` is preserved as a legacy upstream snapshot rather than deleted.
 
 The Codex workflow keeps intake and the pilot chapter in the main thread. After the pilot is approved, Codex may use fresh chapter-scoped subagents **sequentially**; the coordinator alone updates shared book state.

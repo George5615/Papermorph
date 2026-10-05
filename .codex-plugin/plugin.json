@@ -1,5 +1,4 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "papermorph",
   "version": "0.1.0",
   "description": "Turn reference PDFs into animated, narrated, interactive static web books with OpenAI Codex.",
@@ -7,5 +6,5 @@
   "homepage": "https://github.com/George5615/Papermorph",
   "repository": "https://github.com/George5615/Papermorph",
   "license": "MIT",
-  "keywords": ["codex","agent-skill","pdf","education","interactive-book","svg"]
+  "skills": "./skills/"
 }
